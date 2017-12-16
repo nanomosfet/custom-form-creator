@@ -30,8 +30,6 @@ class QuestionItem extends Component {
                 break;
         }
     }
-
-
 }
 
 export default QuestionItem;

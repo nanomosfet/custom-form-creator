@@ -26,11 +26,14 @@ class CustomForm extends Component {
                     currentSectionId={this.state.currentSectionId}
                     sections={this.props.sections}
                     onSectionItemClick={this.handleSectionItemClick}
+                    editMode={this.props.editMode}
+                    onAddSectionClick={this.props.onAddSectionClick}
+                    onSectionNameChange={this.props.onSectionNameChange}
                 />
                 <QuestionList 
                     currentSectionId={this.state.currentSectionId}
                     sections={this.props.sections}
-
+                    editMode={this.props.editMode}
                 />
             </div>
         );
