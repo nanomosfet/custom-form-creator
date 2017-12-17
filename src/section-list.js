@@ -20,8 +20,8 @@ class SectionList extends Component {
     handleRemoveSectionClick(e) {
         this.props.onRemoveSectionClick(e.target.id);
     }
-    handleSectionNameChange(e) {
-        this.props.onSectionNameChange(e.target.id, e.target.value)
+    handleSectionNameChange(id, e) {
+        this.props.onSectionNameChange(id, e.target.value)
     }
 
     renderAddSectionButton() {
@@ -43,7 +43,7 @@ class SectionList extends Component {
                 section={section}
                 onClick={this.handleSectionItemClick}
                 editMode={this.props.editMode}
-                onSectionNameChange={this.handleSectionNameChange}
+                onSectionNameChange={(e) => this.handleSectionNameChange(section.id, e)}
                 onRemoveSectionClick={this.handleRemoveSectionClick}
             />
 

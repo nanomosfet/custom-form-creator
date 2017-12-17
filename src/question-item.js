@@ -2,12 +2,54 @@ import React, { Component } from 'react';
 
 {/* Displays a single question */}
 class QuestionItem extends Component {
+    constructor(props) {
+        super(props);
+        this.questionTypes = [
+            'text',
+            'number'
+        ];
+    }
+
+    getQuestionTypeOptions() {
+        const questionTypeOptions = this.questionTypes.map((type) => 
+            <option key={type} value={type}>{type}</option>
+        );
+
+        return (questionTypeOptions);
+    }
+
+
     renderTextQuestion(question) {
         if(this.props.editMode) {
             return (
-                <div >
-                    <input type="text" id={'question-'+this.props.question.id} value={this.props.question.name} onChange='' />
-                    <input type="text" id={'question-'+question.id} disabled='true' placeholder='Short Text Answer' />
+                <div className="form-row">
+                    <div className="col">
+                        <input 
+                            type="text" 
+                            id={'question-'+question.id}
+                            value={question.name} 
+                            onChange={this.props.onQuestionNameChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="col">
+                        <input 
+                            type="text" 
+                            id={'question-'+question.id} 
+                            disabled='true' 
+                            placeholder='Short Text Answer' 
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="col">
+                        <select 
+                            value={question.questionType}
+                            onChange={this.props.onQuestionTypeChange}
+                            id={"inputType-"+question.id} 
+                            className="form-control" >
+                                {this.getQuestionTypeOptions()}
+                        </select>
+                    </div>
                 </div>
             );
         }
@@ -24,9 +66,34 @@ class QuestionItem extends Component {
     renderNumberQuestion(question) {
         if(this.props.editMode) {
             return (
-                <div >
-                    <input type="text" id={'question-'+this.props.question.id} value={this.props.question.name} onChange='' />
-                    <input type="number" id={'question-'+question.id} disabled='true' placeholder='Numeric Answer' />
+                <div className="form-row">
+                    <div className="col">
+                        <input 
+                            type="text" 
+                            id={'question-'+question.id}
+                            value={question.name} 
+                            onChange={this.props.onQuestionNameChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="col">
+                        <input 
+                            type="number" 
+                            id={'question-'+question.id} 
+                            disabled='true' 
+                            placeholder='Short Number Answer' 
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="col">
+                        <select 
+                            value={question.questionType}
+                            onChange={this.props.onQuestionTypeChange}
+                            id={"inputType-"+question.id} 
+                            className="form-control" >
+                                {this.getQuestionTypeOptions()}
+                        </select>
+                    </div>
                 </div>
             );
         }
