@@ -6,11 +6,13 @@ class SectionItem extends Component {
             return (
                 <li>
                     <input 
-                        onClick={this.props.onClick}
-                        id={this.props.section.id}
+                        onClick={(e) => this.props.onClick(this.props.section.id, e)}
                         value={this.props.section.name}
                         onChange={this.props.onSectionNameChange}
                     />
+                    <button id={this.props.section.id} onClick={this.props.onRemoveSectionClick}>
+                        -
+                    </button>
                 </li>
             );
         }

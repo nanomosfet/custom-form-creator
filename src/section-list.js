@@ -6,15 +6,19 @@ class SectionList extends Component {
         super(props);
         this.handleSectionItemClick = this.handleSectionItemClick.bind(this);
         this.handleAddSectionClick = this.handleAddSectionClick.bind(this);
+        this.handleRemoveSectionClick = this.handleRemoveSectionClick.bind(this);
         this.handleSectionNameChange = this.handleSectionNameChange.bind(this);
     }
 
-    handleSectionItemClick(e) {
-        this.props.onSectionItemClick(e.target.id);
+    handleSectionItemClick(id, e) {
+        this.props.onSectionItemClick(id);
         
     }
     handleAddSectionClick(e) {
         this.props.onAddSectionClick();
+    }
+    handleRemoveSectionClick(e) {
+        this.props.onRemoveSectionClick(e.target.id);
     }
     handleSectionNameChange(e) {
         this.props.onSectionNameChange(e.target.id, e.target.value)
@@ -29,9 +33,7 @@ class SectionList extends Component {
             );
         }
         else {
-            return (
-                <div></div>
-            );
+            return;
         }
     }
     render() {    
@@ -42,7 +44,9 @@ class SectionList extends Component {
                 onClick={this.handleSectionItemClick}
                 editMode={this.props.editMode}
                 onSectionNameChange={this.handleSectionNameChange}
+                onRemoveSectionClick={this.handleRemoveSectionClick}
             />
+
         );
         
         return (

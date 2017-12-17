@@ -1,9 +1,10 @@
+import './base.scss';
+import 'bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CustomFormCreator from './custom-form-creator.js';
-import data from './data.js';
+import CustomForm from './custom-form.js';
 
 ReactDOM.render(
-  <CustomFormCreator />, document.getElementById('root')
+  <CustomForm />, document.getElementById('root')
 );
 
