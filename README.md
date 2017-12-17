@@ -4,6 +4,7 @@ Front end build pipeline currently includes:
 1. npm (Package Manager)
 2. webpack (Module Bundler)
 3. Babel (JavaScript Compiler)
+4. Sass and CSS Compilers for Bootstrap
 
 Backend Server is a simple Flask App that serves the front end.
 
