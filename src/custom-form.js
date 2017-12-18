@@ -56,6 +56,7 @@ class CustomForm extends Component {
         this.handleQuestionNameChange = this.handleQuestionNameChange.bind(this);
         this.handleQuestionTypeChange = this.handleQuestionTypeChange.bind(this);
         this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
+        this.handleQuestionRemoveClick = this.handleQuestionRemoveClick.bind(this);
     }
     
     // Section Handlers
@@ -178,6 +179,33 @@ class CustomForm extends Component {
         });
     }
 
+    handleQuestionRemoveClick(questionId) {
+        let lastQuestionId = this.state.lastQuestionId;
+        let currentQuestionId = this.state.currentQuestionId
+        let newSections = this.state.sections;
+        let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId).questions.indexOf((question) => question.id == questionId);
+        newSections.find((section) => section.id == this.state.currentSectionId).questions.splice(indexToRemove, 1);
+        
+        if(newSections.find((section) => section.id == this.state.currentSectionId).questions.length == 0) {
+            lastQuestionId = lastQuestionId + 1;
+            currentQuestionId = lastQuestionId;
+            let newQuestion = {
+                id: lastQuestionId,
+                name: "New Question",
+                questionType: "text"
+            }
+            newSections.find((section) => section.id == this.state.currentSectionId).questions.push(newQuestion);
+        }
+
+        this.setState({
+            sections: newSections,
+            lastQuestionId: lastQuestionId,
+            currentQuestionId: currentQuestionId
+
+        });
+
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -203,6 +231,7 @@ class CustomForm extends Component {
                             onQuestionTypeChange={this.handleQuestionTypeChange}
                             onActiveQuestionClick={this.handleActiveQuestionClick}
                             onAddQuestionClick={this.handleAddQuestionClick}
+                            onQuestionRemoveClick={this.handleQuestionRemoveClick}
                         />
                     </div>
                 </div>
