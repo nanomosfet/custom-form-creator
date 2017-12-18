@@ -51,8 +51,8 @@ class SectionList extends Component {
         
         return (
             <section>
-                <h4>Sections</h4>
-                <ul>
+                <h4 className="text-center">Sections</h4>
+                <ul className="nav flex-column">
                     {sections}
                     {this.renderAddSectionButton()}
                 </ul>

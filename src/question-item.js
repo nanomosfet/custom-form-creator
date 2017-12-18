@@ -22,35 +22,41 @@ class QuestionItem extends Component {
     renderTextQuestion(question) {
         if(this.props.editMode) {
             return (
-                <div className="form-row">
-                    <div className="col">
-                        <input 
-                            type="text" 
-                            id={'question-'+question.id}
-                            value={question.name} 
-                            onChange={this.props.onQuestionNameChange}
-                            className="form-control"
-                        />
+                <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
+                    <div className="form-row">
+                        <div className="col-7 m-1">
+                            <input 
+                                type="text" 
+                                id={'question-'+question.id}
+                                value={question.name} 
+                                onChange={this.props.onQuestionNameChange}
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="col-4 m-1">
+                            <select 
+                                value={question.questionType}
+                                onChange={this.props.onQuestionTypeChange}
+                                id={"inputType-"+question.id} 
+                                className="form-control" >
+                                    {this.getQuestionTypeOptions()}
+                            </select>
+                        </div>
                     </div>
-                    <div className="col">
-                        <input 
-                            type="text" 
-                            id={'question-'+question.id} 
-                            disabled='true' 
-                            placeholder='Short Text Answer' 
-                            className="form-control"
-                        />
+                    <div className="form-row">
+                        <div className="col-7 m-1">
+                            <input 
+                                type="text" 
+                                id={'question-'+question.id} 
+                                disabled='true' 
+                                placeholder='Short Text Answer' 
+                                className="form-control"
+                            />
+                        </div>
                     </div>
-                    <div className="col">
-                        <select 
-                            value={question.questionType}
-                            onChange={this.props.onQuestionTypeChange}
-                            id={"inputType-"+question.id} 
-                            className="form-control" >
-                                {this.getQuestionTypeOptions()}
-                        </select>
-                    </div>
-                </div>
+            </div>
+                    
+                
             );
         }
         else {
@@ -66,35 +72,39 @@ class QuestionItem extends Component {
     renderNumberQuestion(question) {
         if(this.props.editMode) {
             return (
-                <div className="form-row">
-                    <div className="col">
-                        <input 
-                            type="text" 
-                            id={'question-'+question.id}
-                            value={question.name} 
-                            onChange={this.props.onQuestionNameChange}
-                            className="form-control"
-                        />
+                <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
+                    <div className="form-row">
+                        <div className="col-7 m-1">
+                            <input 
+                                type="text" 
+                                id={'question-'+question.id}
+                                value={question.name} 
+                                onChange={this.props.onQuestionNameChange}
+                                className="form-control"
+                            />
+                        </div>
+                        <div className="col-4 m-1">
+                            <select 
+                                value={question.questionType}
+                                onChange={this.props.onQuestionTypeChange}
+                                id={"inputType-"+question.id} 
+                                className="form-control" >
+                                    {this.getQuestionTypeOptions()}
+                            </select>
+                        </div>
                     </div>
-                    <div className="col">
-                        <input 
-                            type="number" 
-                            id={'question-'+question.id} 
-                            disabled='true' 
-                            placeholder='Short Number Answer' 
-                            className="form-control"
-                        />
+                    <div className="form-row">
+                        <div className="col-7 m-1">
+                            <input 
+                                type="number" 
+                                id={'question-'+question.id} 
+                                disabled='true' 
+                                placeholder='Short Number Answer' 
+                                className="form-control"
+                            />
+                        </div>
                     </div>
-                    <div className="col">
-                        <select 
-                            value={question.questionType}
-                            onChange={this.props.onQuestionTypeChange}
-                            id={"inputType-"+question.id} 
-                            className="form-control" >
-                                {this.getQuestionTypeOptions()}
-                        </select>
-                    </div>
-                </div>
+            </div>
             );
         }
         else {

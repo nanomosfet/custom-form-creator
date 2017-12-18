@@ -55,6 +55,7 @@ class CustomForm extends Component {
         this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
         this.handleQuestionNameChange = this.handleQuestionNameChange.bind(this);
         this.handleQuestionTypeChange = this.handleQuestionTypeChange.bind(this);
+        this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
     }
     
     // Section Handlers
@@ -156,26 +157,39 @@ class CustomForm extends Component {
         });
     }
 
+    handleActiveQuestionClick(questionId) {
+        this.setState({
+            currentQuestionId: questionId
+        });
+    }
+
     render() {
         return (
-            <div>
-                <SectionList 
-                    currentSectionId={this.state.currentSectionId}
-                    sections={this.state.sections}
-                    onSectionItemClick={this.handleSectionItemClick}
-                    editMode={this.state.editMode}
-                    onAddSectionClick={this.handleAddSectionClick}
-                    onSectionNameChange={this.handleSectionNameChange}
-                    onRemoveSectionClick={this.handleRemoveSectionClick}
-                />
-                <QuestionList 
-                    currentSectionId={this.state.currentSectionId}
-                    currentQuestionId={this.state.currentQuestionId}
-                    sections={this.state.sections}
-                    editMode={this.state.editMode}
-                    onQuestionNameChange={this.handleQuestionNameChange}
-                    onQuestionTypeChange={this.handleQuestionTypeChange}
-                />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-3 border border-right-0">
+                        <SectionList 
+                            currentSectionId={this.state.currentSectionId}
+                            sections={this.state.sections}
+                            onSectionItemClick={this.handleSectionItemClick}
+                            editMode={this.state.editMode}
+                            onAddSectionClick={this.handleAddSectionClick}
+                            onSectionNameChange={this.handleSectionNameChange}
+                            onRemoveSectionClick={this.handleRemoveSectionClick}
+                        />
+                    </div>
+                    <div className="col-9 border border-left-0">
+                        <QuestionList 
+                            currentSectionId={this.state.currentSectionId}
+                            currentQuestionId={this.state.currentQuestionId}
+                            sections={this.state.sections}
+                            editMode={this.state.editMode}
+                            onQuestionNameChange={this.handleQuestionNameChange}
+                            onQuestionTypeChange={this.handleQuestionTypeChange}
+                            onActiveQuestionClick={this.handleActiveQuestionClick}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

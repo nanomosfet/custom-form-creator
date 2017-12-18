@@ -4,15 +4,22 @@ class SectionItem extends Component {
     render() {
         if(this.props.editMode) {
             return (
-                <li>
-                    <input 
-                        onClick={(e) => this.props.onClick(this.props.section.id, e)}
-                        value={this.props.section.name}
-                        onChange={this.props.onSectionNameChange}
-                    />
-                    <button id={this.props.section.id} onClick={this.props.onRemoveSectionClick}>
-                        -
-                    </button>
+                <li className="nav-item">
+                    <div className="input-group">
+                        <input 
+                            onClick={(e) => this.props.onClick(this.props.section.id, e)}
+                            value={this.props.section.name}
+                            onChange={this.props.onSectionNameChange}
+                            className="form-control"
+                        />
+                        <span 
+                            id={this.props.section.id} 
+                            onClick={this.props.onRemoveSectionClick}
+                            className="input-group-addon bg-danger close"
+                        >
+                            &times;
+                        </span>
+                    </div>
                 </li>
             );
         }
