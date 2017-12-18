@@ -15,7 +15,7 @@ class SectionItem extends Component {
                         <span 
                             id={this.props.section.id} 
                             onClick={this.props.onRemoveSectionClick}
-                            className="input-group-addon bg-danger close"
+                            className="input-group-addon btn btn-danger"
                         >
                             &times;
                         </span>

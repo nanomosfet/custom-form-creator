@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './question-item.scss';
+import AddQuestionItem from './add-question-item.js';
 
 import QuestionItem from './question-item.js';
 class QuestionList extends Component {
@@ -8,6 +9,7 @@ class QuestionList extends Component {
         this.handleQuestionNameChange = this.handleQuestionNameChange.bind(this);
         this.handleQuestionTypeChange = this.handleQuestionTypeChange.bind(this);
         this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
+        this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
     }
 
     handleQuestionNameChange(sectionId, questionId, e) {
@@ -19,6 +21,9 @@ class QuestionList extends Component {
     }
     handleActiveQuestionClick(questionId) {
         this.props.onActiveQuestionClick(questionId);
+    }
+    handleAddQuestionClick() {
+        this.props.onAddQuestionClick();
     }
     render() {
         const questions = this.props.sections.find((section) => section.id == this.props.currentSectionId).questions.map((question) => 
@@ -35,8 +40,11 @@ class QuestionList extends Component {
 
         return (
             <div>
-                <h4 className="text-center">{this.props.sections.find((section) => section.id == this.props.currentSectionId).name}</h4>
+                <h5 className="text-center">{this.props.sections.find((section) => section.id == this.props.currentSectionId).name}</h5>
                 {questions}
+                <AddQuestionItem 
+                    onAddQuestionClick={(e) => this.handleAddQuestionClick()}
+                />
             </div>
         );
     }

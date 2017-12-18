@@ -8,11 +8,16 @@ class QuestionItem extends Component {
             'text',
             'number'
         ];
+
+        this.questionNames = {
+            'text': 'Short Answer',
+            'number': 'Number'
+        }
     }
 
     getQuestionTypeOptions() {
         const questionTypeOptions = this.questionTypes.map((type) => 
-            <option key={type} value={type}>{type}</option>
+            <option key={type} value={type}>{this.questionNames[type]}</option>
         );
 
         return (questionTypeOptions);

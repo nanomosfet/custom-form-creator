@@ -62,8 +62,11 @@ class CustomForm extends Component {
 
     // Updates state when a SectionItem is clicked
     handleSectionItemClick(currentSectionId) {
+        let currentQuestionId = this.state.sections.find((section) => section.id == currentSectionId).questions[0].id;
+
         this.setState({
-            currentSectionId: currentSectionId
+            currentSectionId: currentSectionId,
+            currentQuestionId: currentQuestionId,
         });
     }
 
@@ -86,7 +89,9 @@ class CustomForm extends Component {
         this.setState({
             sections: this.state.sections.concat(newSection),
             lastQuestionId: lastQuestionId,
-            lastSectionId: lastSectionId
+            lastSectionId: lastSectionId,
+            currentQuestionId: lastQuestionId,
+            currentSectionId: lastSectionId
         });
     }
     // Updates state when a remove section is clicked.
@@ -121,7 +126,6 @@ class CustomForm extends Component {
     }
     // Updates the state when the Section name changes. 
     handleSectionNameChange(sectionId, newName) {
-        console.log(sectionId+'   '+ newName)
         let newSections = this.state.sections;
         newSections.find((section) => section.id === parseInt(sectionId)).name = newName;
         this.setState({
@@ -132,7 +136,18 @@ class CustomForm extends Component {
 
     //Question Handlers
     handleAddQuestionClick() {
-        return;
+        let lastQuestionId = this.state.lastQuestionId + 1;
+        let newSections = this.state.sections;
+        let newQuestion = {
+            id: lastQuestionId,
+            name: "New Question",
+            questionType: "text"
+        }
+        newSections.find((section) => section.id == this.state.currentSectionId).questions.push(newQuestion);
+        this.setState({
+            lastQuestionId: lastQuestionId,
+            sections: newSections
+        });
     }
 
     handleQuestionNameChange(sectionId, questionId, newName) {
@@ -187,6 +202,7 @@ class CustomForm extends Component {
                             onQuestionNameChange={this.handleQuestionNameChange}
                             onQuestionTypeChange={this.handleQuestionTypeChange}
                             onActiveQuestionClick={this.handleActiveQuestionClick}
+                            onAddQuestionClick={this.handleAddQuestionClick}
                         />
                     </div>
                 </div>
