@@ -22,6 +22,15 @@ class CustomForm extends Component {
                             name: "Patient Age",
                             questionType: "number"
                         },
+                        {
+                            id: 4,
+                            name: "Gender",
+                            questionType: "dropdown",
+                            options: [
+                                'Male',
+                                'Female'
+                            ]
+                        }
                     ]
                 },
                 {
@@ -101,6 +110,7 @@ class CustomForm extends Component {
         let lastQuestionId = this.state.lastQuestionId + 1;
         let newSections = this.state.sections;
         let indexToRemove = newSections.indexOf(newSections.find((section) => section.id === parseInt(sectionId)));
+
         newSections.splice(indexToRemove, 1);
 
         if(newSections.length == 0) {
@@ -183,7 +193,13 @@ class CustomForm extends Component {
         let lastQuestionId = this.state.lastQuestionId;
         let currentQuestionId = this.state.currentQuestionId
         let newSections = this.state.sections;
-        let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId).questions.indexOf((question) => question.id == questionId);
+
+        let questionToRemove = newSections.find((section) => section.id == this.state.currentSectionId)
+            .questions.find((question) => question.id == questionId);
+        let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId)
+            .questions.indexOf(questionToRemove);
+
+        console.log(indexToRemove);
         newSections.find((section) => section.id == this.state.currentSectionId).questions.splice(indexToRemove, 1);
         
         if(newSections.find((section) => section.id == this.state.currentSectionId).questions.length == 0) {
