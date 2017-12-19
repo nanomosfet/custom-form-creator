@@ -11,6 +11,7 @@ class QuestionList extends Component {
         this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
         this.handleAddQuestionClick = this.handleAddQuestionClick.bind(this);
         this.handleQuestionRemoveClick = this.handleQuestionRemoveClick.bind(this);
+        this.handleQuestionOptionChange = this.handleQuestionOptionChange.bind(this);
     }
 
     handleQuestionNameChange(sectionId, questionId, e) {
@@ -29,6 +30,9 @@ class QuestionList extends Component {
     handleQuestionRemoveClick(questionId) {
         this.props.onQuestionRemoveClick(questionId);
     }
+    handleQuestionOptionChange(optionId, e) {
+        this.props.onQuestionOptionChange(optionId, e.target.value)
+    }
     render() {
         const questions = this.props.sections.find((section) => section.id == this.props.currentSectionId).questions.map((question) => 
             <QuestionItem 
@@ -40,6 +44,7 @@ class QuestionList extends Component {
                 currentQuestionId={this.props.currentQuestionId}
                 onActiveQuestionClick={(e) => this.handleActiveQuestionClick(question.id)}
                 onQuestionRemoveClick={(e) => this.handleQuestionRemoveClick(question.id)}
+                onQuestionOptionChange={this.handleQuestionOptionChange}
             />
         );
 

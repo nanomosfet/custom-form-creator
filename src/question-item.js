@@ -60,10 +60,10 @@ class QuestionItem extends Component {
                                 className="form-control m-1"
                             />
                         </div>
-                        <div className="col-3 offset-3">
+                        <div className="col-3 offset-3 d-flex align-content-end">
                             <button 
                                 type="button" 
-                                className="btn btn-danger btn-sm float-right  m-1"
+                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
                                 &times;
@@ -120,10 +120,10 @@ class QuestionItem extends Component {
                                 className="form-control m-1"
                             />
                         </div>
-                        <div className="col-3 offset-3">
+                        <div className="col-3 offset-3 d-flex align-content-end">
                             <button 
                                 type="button" 
-                                className="btn btn-danger btn-sm float-right  m-1"
+                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
                                 &times;
@@ -144,8 +144,9 @@ class QuestionItem extends Component {
     }
 
     renderDropdownQuestion(question) {
+
         const getDropdownOptions = question.options.map((option, index) => 
-            <li key={option} className="list-group-item">
+            <li key={option.id} className="list-group-item">
                 <div className="input-group">
                     <span
                         className="input-group-addon"
@@ -154,7 +155,25 @@ class QuestionItem extends Component {
                     </span>
                     <input 
                         type="text"
-                        placeholder={option}
+                        value={option.option}
+                        className="form-control"
+                        onChange={(e) => this.props.onQuestionOptionChange(option.id, e)}
+                    />
+                </div>
+            </li>
+        );
+
+        const renderDropdownAddOption = (
+            <li className="list-group-item">
+                <div className="input-group">
+                    <span
+                        className="input-group-addon"
+                    >
+                        {(question.options.length + 1).toString() + '.'} 
+                    </span>
+                    <input 
+                        type="text"
+                        placeholder='New Option'
                         className="form-control"
                     />
                 </div>
@@ -189,12 +208,13 @@ class QuestionItem extends Component {
                                 className="list-group m-1"
                             >
                                 {getDropdownOptions}
+                                {renderDropdownAddOption}
                             </ol>
                         </div>
-                        <div className="col-3 offset-3">
+                        <div className="col-3 offset-3 d-flex align-content-end">
                             <button 
                                 type="button" 
-                                className="btn btn-danger btn-sm float-right m-1"
+                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
                                 &times;

@@ -27,8 +27,14 @@ class CustomForm extends Component {
                             name: "Gender",
                             questionType: "dropdown",
                             options: [
-                                'Male',
-                                'Female'
+                                {
+                                    id: 0,
+                                    option: 'Male'
+                                },
+                                {
+                                    id:1,
+                                    option: 'Female'
+                                }                                
                             ]
                         }
                     ]
@@ -52,7 +58,7 @@ class CustomForm extends Component {
             ],
             editMode: 1,
             lastSectionId: 1,
-            lastQuestionId: 3,
+            lastQuestionId: 4,
             currentSectionId: 0,
             currentQuestionId: 0
         }
@@ -66,6 +72,7 @@ class CustomForm extends Component {
         this.handleQuestionTypeChange = this.handleQuestionTypeChange.bind(this);
         this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
         this.handleQuestionRemoveClick = this.handleQuestionRemoveClick.bind(this);
+        this.handleQuestionOptionChange = this.handleQuestionOptionChange.bind(this);
     }
     
     // Section Handlers
@@ -178,6 +185,10 @@ class CustomForm extends Component {
         newSections.find((section) => section.id === parseInt(sectionId))
             .questions.find((question) => question.id === parseInt(questionId)).questionType = newType;
 
+        if(newType == 'dropdown') {
+            newSections.find((section) => section.id === parseInt(sectionId))
+                .questions.find((question) => question.id === parseInt(questionId)).options = [];
+        }
         this.setState({
             sections: newSections
         });
@@ -191,15 +202,13 @@ class CustomForm extends Component {
 
     handleQuestionRemoveClick(questionId) {
         let lastQuestionId = this.state.lastQuestionId;
-        let currentQuestionId = this.state.currentQuestionId
+        let currentQuestionId = questionId;
         let newSections = this.state.sections;
 
         let questionToRemove = newSections.find((section) => section.id == this.state.currentSectionId)
             .questions.find((question) => question.id == questionId);
         let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId)
             .questions.indexOf(questionToRemove);
-
-        console.log(indexToRemove);
         newSections.find((section) => section.id == this.state.currentSectionId).questions.splice(indexToRemove, 1);
         
         if(newSections.find((section) => section.id == this.state.currentSectionId).questions.length == 0) {
@@ -212,7 +221,7 @@ class CustomForm extends Component {
             }
             newSections.find((section) => section.id == this.state.currentSectionId).questions.push(newQuestion);
         }
-
+        console.log(currentQuestionId);
         this.setState({
             sections: newSections,
             lastQuestionId: lastQuestionId,
@@ -220,6 +229,17 @@ class CustomForm extends Component {
 
         });
 
+    }
+    handleQuestionOptionChange(optionId, newOption) {
+        let newSections = this.state.sections;
+
+        newSections.find((section) => section.id == this.state.currentSectionId).questions
+            .find((question) => question.id == this.state.currentQuestionId).options
+                .find((option) => option.id == optionId).option = newOption;
+
+        this.setState({
+            sections: newSections
+        });
     }
 
     render() {
@@ -248,6 +268,7 @@ class CustomForm extends Component {
                             onActiveQuestionClick={this.handleActiveQuestionClick}
                             onAddQuestionClick={this.handleAddQuestionClick}
                             onQuestionRemoveClick={this.handleQuestionRemoveClick}
+                            onQuestionOptionChange={this.handleQuestionOptionChange}
                         />
                     </div>
                 </div>
