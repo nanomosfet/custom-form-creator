@@ -159,6 +159,12 @@ class QuestionItem extends Component {
                         className="form-control"
                         onChange={(e) => this.props.onQuestionOptionChange(option.id, e)}
                     />
+                     <span                              
+                            onClick={(e) => this.props.onQuestionOptionRemoveClick(option.id, question.id)}
+                            className="input-group-addon btn btn-danger"
+                        >
+                            &times;
+                    </span>
                 </div>
             </li>
         );
@@ -175,6 +181,7 @@ class QuestionItem extends Component {
                         type="text"
                         placeholder='New Option'
                         className="form-control"
+                        onClick={this.props.onQuestionAddOptionClick}
                     />
                 </div>
             </li>

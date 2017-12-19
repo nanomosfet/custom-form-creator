@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import SectionList from './section-list.js'
 import QuestionList from './question-list.js'
@@ -59,6 +60,7 @@ class CustomForm extends Component {
             editMode: 1,
             lastSectionId: 1,
             lastQuestionId: 4,
+            lastOptionId: 3,
             currentSectionId: 0,
             currentQuestionId: 0
         }
@@ -73,6 +75,8 @@ class CustomForm extends Component {
         this.handleActiveQuestionClick = this.handleActiveQuestionClick.bind(this);
         this.handleQuestionRemoveClick = this.handleQuestionRemoveClick.bind(this);
         this.handleQuestionOptionChange = this.handleQuestionOptionChange.bind(this);
+        this.handleQuestionAddOptionClick = this.handleQuestionAddOptionClick.bind(this);
+        this.handleQuestionOptionRemoveClick = this.handleQuestionOptionRemoveClick.bind(this);
     }
     
     // Section Handlers
@@ -242,6 +246,47 @@ class CustomForm extends Component {
         });
     }
 
+    handleQuestionAddOptionClick(questionId, target) {
+        let lastOptionId = this.state.lastOptionId + 1;
+        let newOption = {
+            id: lastOptionId,
+            option: 'New Option'
+        }
+        let newSections = this.state.sections;
+
+        newSections.find((section) => section.id == this.state.currentSectionId).questions
+            .find((question) => question.id == questionId).options.push(newOption);
+
+
+        let focusCallback = () => {
+            ReactDOM.findDOMNode(target).parentNode.parentNode.previousSibling.firstChild.firstChild.nextSibling.select();
+        }
+        this.setState({
+            sections: newSections,
+            lastOptionId: lastOptionId
+        },
+        focusCallback);
+        
+        
+    }
+    handleQuestionOptionRemoveClick(optionId, questionId) {
+        console.log(optionId)
+        let newSections = this.state.sections;
+        let optionToRemove = newSections.find((section) => section.id == this.state.currentSectionId).questions
+                .find((question) => question.id == questionId).options
+                        .find((option) => option.id == optionId)
+
+        let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId).questions
+                .find((question) => question.id == questionId).options
+                        .indexOf(optionToRemove);
+        newSections.find((section) => section.id == this.state.currentSectionId).questions
+            .find((question) => question.id == questionId).options.splice(indexToRemove, 1);
+
+        this.setState({
+            sections: newSections
+        });
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -269,6 +314,8 @@ class CustomForm extends Component {
                             onAddQuestionClick={this.handleAddQuestionClick}
                             onQuestionRemoveClick={this.handleQuestionRemoveClick}
                             onQuestionOptionChange={this.handleQuestionOptionChange}
+                            onQuestionAddOptionClick={this.handleQuestionAddOptionClick}
+                            onQuestionOptionRemoveClick={this.handleQuestionOptionRemoveClick}
                         />
                     </div>
                 </div>
