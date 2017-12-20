@@ -1,6 +1,57 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { findDOMNode } from 'react-dom';
+import { DragSource, DropTarget } from 'react-dnd';
+import ItemTypes from './item-types';
+
+const questionSource = {
+    beginDrag(props) {
+        return {
+            id: props.id,
+            index: props.index,
+        }
+    }
+}
+
+const questionTarget = {
+    hover(props, monitor, component) {
+        const dragIndex = monitor.getItem().index;
+        const hoverIndex = props.index;
+
+        if (dragIndex === hoverIndex) {
+            return;
+        }
+
+        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+        const clientOffset = monitor.getClientOffset();
+
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+            return
+        }
+
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            return
+        }
+
+        props.moveQuestion(dragIndex, hoverIndex);
+
+        monitor.getItem().index = hoverIndex;
+    }
+}
 
 {/* Displays a single question */}
+@DropTarget(ItemTypes.QUESTION, questionTarget, connect => ({
+    connectDropTarget: connect.dropTarget(),
+}))
+@DragSource(ItemTypes.QUESTION, questionSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+}))
 class QuestionItem extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +68,17 @@ class QuestionItem extends Component {
         }
     }
 
+    static propTypes = {
+        connectDragSource: PropTypes.func.isRequired,
+        connectDropTarget: PropTypes.func.isRequired,
+        index: PropTypes.number.isRequired,
+        isDragging: PropTypes.bool.isRequired,
+        id: PropTypes.any.isRequired,
+        moveQuestion: PropTypes.func.isRequired,
+    }
+
     getQuestionTypeOptions() {
-        const questionTypeOptions = this.questionTypes.map((type) => 
+        const questionTypeOptions = this.questionTypes.map((type) =>
             <option key={type} value={type}>{this.questionNames[type]}</option>
         );
 
@@ -32,19 +92,19 @@ class QuestionItem extends Component {
                 <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
                     <div className="form-row">
                         <div className="col-6">
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 id={'question-'+question.id}
-                                value={question.name} 
+                                value={question.name}
                                 onChange={this.props.onQuestionNameChange}
                                 className="form-control  m-1"
                             />
                         </div>
                         <div className="col-3 offset-3">
-                            <select 
+                            <select
                                 value={question.questionType}
                                 onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id} 
+                                id={"inputType-"+question.id}
                                 className="form-control float-right  m-1" >
                                     {this.getQuestionTypeOptions()}
                             </select>
@@ -52,17 +112,17 @@ class QuestionItem extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-6">
-                            <input 
-                                type="text" 
-                                id={'question-'+question.id} 
-                                disabled='true' 
-                                placeholder='Short Text Answer' 
+                            <input
+                                type="text"
+                                id={'question-'+question.id}
+                                disabled='true'
+                                placeholder='Short Text Answer'
                                 className="form-control m-1"
                             />
                         </div>
                         <div className="col-3 offset-3 d-flex align-content-end">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
@@ -72,18 +132,18 @@ class QuestionItem extends Component {
                     </div>
 
             </div>
-                    
-                
+
+
             );
         }
         else {
-            return (            
+            return (
                 <div>
                     <label htmlFor={'question-'+question.id}>{question.name}</label>
                     <input type="text" id={'question-'+question.id} />
                 </div>
             );
-        }        
+        }
     }
 
     renderNumberQuestion(question) {
@@ -92,19 +152,19 @@ class QuestionItem extends Component {
                 <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
                     <div className="form-row">
                         <div className="col-6">
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 id={'question-'+question.id}
-                                value={question.name} 
+                                value={question.name}
                                 onChange={this.props.onQuestionNameChange}
                                 className="form-control  m-1"
                             />
                         </div>
                         <div className="col-3 offset-3">
-                            <select 
+                            <select
                                 value={question.questionType}
                                 onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id} 
+                                id={"inputType-"+question.id}
                                 className="form-control float-right  m-1" >
                                     {this.getQuestionTypeOptions()}
                             </select>
@@ -112,17 +172,17 @@ class QuestionItem extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-6">
-                            <input 
-                                type="number" 
-                                id={'question-'+question.id} 
-                                disabled='true' 
-                                placeholder='Number Answer' 
+                            <input
+                                type="number"
+                                id={'question-'+question.id}
+                                disabled='true'
+                                placeholder='Number Answer'
                                 className="form-control m-1"
                             />
                         </div>
                         <div className="col-3 offset-3 d-flex align-content-end">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
@@ -134,7 +194,7 @@ class QuestionItem extends Component {
             );
         }
         else {
-            return (            
+            return (
                 <div>
                     <label htmlFor={'question-'+question.id}>{question.name}</label>
                     <input type="number" id={'question-'+question.id} />
@@ -145,7 +205,7 @@ class QuestionItem extends Component {
 
     renderDropdownQuestion(question) {
 
-        const getDropdownOptions = question.options.map((option, index) => 
+        const getDropdownOptions = question.options.map((option, index) =>
             <li key={option.id} className="list-group-item">
                 <div className="input-group">
                     <span
@@ -153,13 +213,13 @@ class QuestionItem extends Component {
                     >
                         {(index+1).toString()+'.'}
                     </span>
-                    <input 
+                    <input
                         type="text"
                         value={option.option}
                         className="form-control"
                         onChange={(e) => this.props.onQuestionOptionChange(option.id, e)}
                     />
-                     <span                              
+                     <span
                             onClick={(e) => this.props.onQuestionOptionRemoveClick(option.id, question.id)}
                             className="input-group-addon btn btn-danger"
                         >
@@ -175,9 +235,9 @@ class QuestionItem extends Component {
                     <span
                         className="input-group-addon"
                     >
-                        {(question.options.length + 1).toString() + '.'} 
+                        {(question.options.length + 1).toString() + '.'}
                     </span>
-                    <input 
+                    <input
                         type="text"
                         placeholder='New Option'
                         className="form-control"
@@ -191,19 +251,19 @@ class QuestionItem extends Component {
                 <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
                     <div className="form-row">
                         <div className="col-6">
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 id={'question-'+question.id}
-                                value={question.name} 
+                                value={question.name}
                                 onChange={this.props.onQuestionNameChange}
                                 className="form-control  m-1"
                             />
                         </div>
                         <div className="col-3 offset-3">
-                            <select 
+                            <select
                                 value={question.questionType}
                                 onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id} 
+                                id={"inputType-"+question.id}
                                 className="form-control float-right  m-1" >
                                     {this.getQuestionTypeOptions()}
                             </select>
@@ -211,7 +271,7 @@ class QuestionItem extends Component {
                     </div>
                     <div className="form-row">
                         <div className="col-6">
-                            <ol                                
+                            <ol
                                 className="list-group m-1"
                             >
                                 {getDropdownOptions}
@@ -219,8 +279,8 @@ class QuestionItem extends Component {
                             </ol>
                         </div>
                         <div className="col-3 offset-3 d-flex align-content-end">
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-danger btn-sm ml-auto float-right mt-auto"
                                 onClick={this.props.onQuestionRemoveClick}
                             >
@@ -232,7 +292,7 @@ class QuestionItem extends Component {
             );
         }
         else {
-            return (            
+            return (
                 <div>
                     <label htmlFor={'question-'+question.id}>{question.name}</label>
                     <input type="number" id={'question-'+question.id} />
@@ -242,17 +302,27 @@ class QuestionItem extends Component {
     }
     render() {
         const question = this.props.question;
+
+        const {
+            isDragging,
+            connectDragSource,
+            connectDropTarget,
+        } = this.props
+        let questionEl = ''
         switch(question.questionType) {
             case 'text':
-                return this.renderTextQuestion(question);
+                questionEl = this.renderTextQuestion(question);
                 break;
             case 'number':
-                return this.renderNumberQuestion(question);
+                questionEl = this.renderNumberQuestion(question);
                 break;
             case 'dropdown':
-                return this.renderDropdownQuestion(question);
+                questionEl = this.renderDropdownQuestion(question);
                 break;
         }
+        return connectDragSource(
+            connectDropTarget(<div>{questionEl}</div>)
+        )
     }
 }
 

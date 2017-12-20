@@ -4,6 +4,8 @@ import './question-item.scss';
 import AddQuestionItem from './add-question-item.js';
 
 import QuestionItem from './question-item.js';
+
+
 class QuestionList extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +17,8 @@ class QuestionList extends Component {
         this.handleQuestionOptionChange = this.handleQuestionOptionChange.bind(this);
         this.handleQuestionAddOptionClick = this.handleQuestionAddOptionClick.bind(this);
         this.handleQuestionOptionRemoveClick = this.handleQuestionOptionRemoveClick.bind(this);
+
+
     }
 
     handleQuestionNameChange(sectionId, questionId, e) {
@@ -43,10 +47,12 @@ class QuestionList extends Component {
         this.props.onQuestionOptionRemoveClick(optionId, questionId);
     }
     render() {
-        const questions = this.props.sections.find((section) => section.id == this.props.currentSectionId).questions.map((question) => 
+        const questions = this.props.sections.find((section) => section.id == this.props.currentSectionId).questions.map((question, index) => 
             <QuestionItem 
                 question={question}
+                id={question.id}
                 key={question.id}
+                index={index}
                 editMode={this.props.editMode}
                 onQuestionNameChange={(e) => this.handleQuestionNameChange(this.props.currentSectionId, question.id, e)}
                 onQuestionTypeChange={(e) => this.handleQuestionTypeChange(this.props.currentSectionId, question.id, e)}
@@ -56,6 +62,7 @@ class QuestionList extends Component {
                 onQuestionOptionChange={this.handleQuestionOptionChange}
                 onQuestionAddOptionClick={(e) => this.handleQuestionAddOptionClick(question.id, e)}
                 onQuestionOptionRemoveClick={this.handleQuestionOptionRemoveClick}
+                moveQuestion={this.props.moveQuestion}
             />
         );
 

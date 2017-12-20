@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-import SectionList from './section-list.js'
-import QuestionList from './question-list.js'
+import { DragDropContext } from 'react-dnd';
+import update from 'immutability-helper';
+import HTML5Backend from 'react-dnd-html5-backend';
+import SectionList from './section-list.js';
+import QuestionList from './question-list.js';
 {/* Displays all parts of the custom form creator */}
+@DragDropContext(HTML5Backend)
 class CustomForm extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +38,7 @@ class CustomForm extends Component {
                                 {
                                     id:1,
                                     option: 'Female'
-                                }                                
+                                }
                             ]
                         }
                     ]
@@ -77,8 +80,37 @@ class CustomForm extends Component {
         this.handleQuestionOptionChange = this.handleQuestionOptionChange.bind(this);
         this.handleQuestionAddOptionClick = this.handleQuestionAddOptionClick.bind(this);
         this.handleQuestionOptionRemoveClick = this.handleQuestionOptionRemoveClick.bind(this);
+
+        this.moveQuestion = this.moveQuestion.bind(this);
     }
-    
+
+    // Drag Question Handlers
+
+    moveQuestion(dragIndex,hoverIndex) {
+        const questions = this.state.sections.find(section => section.id == this.state.currentSectionId).questions;
+        const dragQuestion = questions[dragIndex];
+        console.log(this.state.sections.find(section => section.id == this.state.currentSectionId).questions)
+        console.log(update(this.state.sections.find(section => section.id == this.state.currentSectionId), {
+                    questions: {
+                        $splice: [[dragIndex, 1], [hoverIndex, 0, dragQuestion]],
+                    },
+            }))
+        let newSection = update(this.state.sections.find(section => section.id == this.state.currentSectionId), {
+            questions: {
+                $splice: [[dragIndex, 1], [hoverIndex, 0, dragQuestion]],
+            },
+        })
+
+        let newSections = this.state.sections;
+        let indexOfSection = newSections.indexOf(newSections.find(section => section.id == this.state.currentSectionId));
+        newSections.splice(indexOfSection,1,newSection);
+
+
+        this.setState({
+            sections: newSections
+        });
+    }
+
     // Section Handlers
 
     // Updates state when a SectionItem is clicked
@@ -146,7 +178,7 @@ class CustomForm extends Component {
 
         });
     }
-    // Updates the state when the Section name changes. 
+    // Updates the state when the Section name changes.
     handleSectionNameChange(sectionId, newName) {
         let newSections = this.state.sections;
         newSections.find((section) => section.id === parseInt(sectionId)).name = newName;
@@ -214,7 +246,7 @@ class CustomForm extends Component {
         let indexToRemove = newSections.find((section) => section.id == this.state.currentSectionId)
             .questions.indexOf(questionToRemove);
         newSections.find((section) => section.id == this.state.currentSectionId).questions.splice(indexToRemove, 1);
-        
+
         if(newSections.find((section) => section.id == this.state.currentSectionId).questions.length == 0) {
             lastQuestionId = lastQuestionId + 1;
             currentQuestionId = lastQuestionId;
@@ -225,7 +257,7 @@ class CustomForm extends Component {
             }
             newSections.find((section) => section.id == this.state.currentSectionId).questions.push(newQuestion);
         }
-        console.log(currentQuestionId);
+
         this.setState({
             sections: newSections,
             lastQuestionId: lastQuestionId,
@@ -266,11 +298,10 @@ class CustomForm extends Component {
             lastOptionId: lastOptionId
         },
         focusCallback);
-        
-        
+
+
     }
     handleQuestionOptionRemoveClick(optionId, questionId) {
-        console.log(optionId)
         let newSections = this.state.sections;
         let optionToRemove = newSections.find((section) => section.id == this.state.currentSectionId).questions
                 .find((question) => question.id == questionId).options
@@ -292,7 +323,7 @@ class CustomForm extends Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-3 border border-right-0">
-                        <SectionList 
+                        <SectionList
                             currentSectionId={this.state.currentSectionId}
                             sections={this.state.sections}
                             onSectionItemClick={this.handleSectionItemClick}
@@ -303,7 +334,7 @@ class CustomForm extends Component {
                         />
                     </div>
                     <div className="col-9 border border-left-0">
-                        <QuestionList 
+                        <QuestionList
                             currentSectionId={this.state.currentSectionId}
                             currentQuestionId={this.state.currentQuestionId}
                             sections={this.state.sections}
@@ -316,6 +347,7 @@ class CustomForm extends Component {
                             onQuestionOptionChange={this.handleQuestionOptionChange}
                             onQuestionAddOptionClick={this.handleQuestionAddOptionClick}
                             onQuestionOptionRemoveClick={this.handleQuestionOptionRemoveClick}
+                            moveQuestion={this.moveQuestion}
                         />
                     </div>
                 </div>
