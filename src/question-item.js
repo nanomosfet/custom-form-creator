@@ -320,8 +320,9 @@ class QuestionItem extends Component {
                 questionEl = this.renderDropdownQuestion(question);
                 break;
         }
+        const opacity = isDragging? 0 : 1;
         return connectDragSource(
-            connectDropTarget(<div>{questionEl}</div>)
+            connectDropTarget(<div style={{opacity}}>{questionEl}</div>)
         )
     }
 }
