@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from './item-types';
+import QuestionTypeSelect from './question-type-select.js'
 
 const questionSource = {
     beginDrag(props) {
@@ -101,13 +102,11 @@ class QuestionItem extends Component {
                             />
                         </div>
                         <div className="col-3 offset-3">
-                            <select
-                                value={question.questionType}
+                            <QuestionTypeSelect
+                                questionType={question.questionType}
                                 onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id}
-                                className="form-control float-right  m-1" >
-                                    {this.getQuestionTypeOptions()}
-                            </select>
+                            />
+
                         </div>
                     </div>
                     <div className="form-row">
@@ -204,7 +203,6 @@ class QuestionItem extends Component {
     }
 
     renderDropdownQuestion(question) {
-
         const getDropdownOptions = question.options.map((option, index) =>
             <li key={option.id} className="list-group-item">
                 <div className="input-group">
