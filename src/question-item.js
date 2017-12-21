@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from './item-types';
-import QuestionTypeSelect from './question-type-select.js'
+import QuestionTypeSelect from './question-type-select.js';
+import QuestionTitle from './question-title.js'
 
 const questionSource = {
     beginDrag(props) {
@@ -249,12 +250,12 @@ class QuestionItem extends Component {
                 <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
                     <div className="form-row">
                         <div className="col-6">
-                            <input
-                                type="text"
-                                id={'question-'+question.id}
-                                value={question.name}
+                            <QuestionTitle
+                                question={question}
+
+
                                 onChange={this.props.onQuestionNameChange}
-                                className="form-control  m-1"
+
                             />
                         </div>
                         <div className="col-3 offset-3">
