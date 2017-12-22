@@ -89,12 +89,7 @@ class CustomForm extends Component {
     moveQuestion(dragIndex,hoverIndex) {
         const questions = this.state.sections.find(section => section.id == this.state.currentSectionId).questions;
         const dragQuestion = questions[dragIndex];
-        console.log(this.state.sections.find(section => section.id == this.state.currentSectionId).questions)
-        console.log(update(this.state.sections.find(section => section.id == this.state.currentSectionId), {
-                    questions: {
-                        $splice: [[dragIndex, 1], [hoverIndex, 0, dragQuestion]],
-                    },
-            }))
+
         let newSection = update(this.state.sections.find(section => section.id == this.state.currentSectionId), {
             questions: {
                 $splice: [[dragIndex, 1], [hoverIndex, 0, dragQuestion]],
