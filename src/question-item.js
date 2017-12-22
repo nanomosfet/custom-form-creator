@@ -91,49 +91,13 @@ class QuestionItem extends Component {
     renderTextQuestion(question) {
         if(this.props.editMode) {
             return (
-                <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
-                    <div className="form-row">
-                        <div className="col-6">
-                            <input
-                                type="text"
-                                id={'question-'+question.id}
-                                value={question.name}
-                                onChange={this.props.onQuestionNameChange}
-                                className="form-control  m-1"
-                            />
-                        </div>
-                        <div className="col-3 offset-3">
-                            <QuestionTypeSelect
-                                questionType={question.questionType}
-                                onChange={this.props.onQuestionTypeChange}
-                            />
-
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="col-6">
-                            <input
-                                type="text"
-                                id={'question-'+question.id}
-                                disabled='true'
-                                placeholder='Short Text Answer'
-                                className="form-control m-1"
-                            />
-                        </div>
-                        <div className="col-3 offset-3 d-flex align-content-end">
-                            <button
-                                type="button"
-                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
-                                onClick={this.props.onQuestionRemoveClick}
-                            >
-                                &times;
-                            </button>
-                        </div>
-                    </div>
-
-            </div>
-
-
+                <input
+                    type="text"
+                    id={'question-'+question.id}
+                    disabled='true'
+                    placeholder='Short Text Answer'
+                    className="form-control m-1"
+                />
             );
         }
         else {
@@ -148,49 +112,15 @@ class QuestionItem extends Component {
 
     renderNumberQuestion(question) {
         if(this.props.editMode) {
-            return (
-                <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
-                    <div className="form-row">
-                        <div className="col-6">
-                            <input
-                                type="text"
-                                id={'question-'+question.id}
-                                value={question.name}
-                                onChange={this.props.onQuestionNameChange}
-                                className="form-control  m-1"
-                            />
-                        </div>
-                        <div className="col-3 offset-3">
-                            <select
-                                value={question.questionType}
-                                onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id}
-                                className="form-control float-right  m-1" >
-                                    {this.getQuestionTypeOptions()}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="col-6">
-                            <input
-                                type="number"
-                                id={'question-'+question.id}
-                                disabled='true'
-                                placeholder='Number Answer'
-                                className="form-control m-1"
-                            />
-                        </div>
-                        <div className="col-3 offset-3 d-flex align-content-end">
-                            <button
-                                type="button"
-                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
-                                onClick={this.props.onQuestionRemoveClick}
-                            >
-                                &times;
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            return (                
+                <input
+                    type="number"
+                    id={'question-'+question.id}
+                    disabled='true'
+                    placeholder='Number Answer'
+                    className="form-control m-1"
+                />
+                       
             );
         }
         else {
@@ -246,48 +176,13 @@ class QuestionItem extends Component {
             </li>
         );
         if(this.props.editMode) {
-            return (
-                <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
-                    <div className="form-row">
-                        <div className="col-6">
-                            <QuestionTitle
-                                question={question}
-
-
-                                onChange={this.props.onQuestionNameChange}
-
-                            />
-                        </div>
-                        <div className="col-3 offset-3">
-                            <select
-                                value={question.questionType}
-                                onChange={this.props.onQuestionTypeChange}
-                                id={"inputType-"+question.id}
-                                className="form-control float-right  m-1" >
-                                    {this.getQuestionTypeOptions()}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="col-6">
-                            <ol
-                                className="list-group m-1"
-                            >
-                                {getDropdownOptions}
-                                {renderDropdownAddOption}
-                            </ol>
-                        </div>
-                        <div className="col-3 offset-3 d-flex align-content-end">
-                            <button
-                                type="button"
-                                className="btn btn-danger btn-sm ml-auto float-right mt-auto"
-                                onClick={this.props.onQuestionRemoveClick}
-                            >
-                                &times;
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            return (                
+                <ol
+                    className="list-group m-1"
+                >
+                    {getDropdownOptions}
+                    {renderDropdownAddOption}
+                </ol>                        
             );
         }
         else {
@@ -319,11 +214,43 @@ class QuestionItem extends Component {
                 questionEl = this.renderDropdownQuestion(question);
                 break;
         }
+        const questionItem = (
+            <div onClick={this.props.onActiveQuestionClick} className={"p-2 m-2 border border-primary rounded "+((question.id == this.props.currentQuestionId)?"active-question": "")} >
+                <div className="form-row">
+                    <div className="col-6">
+                        <QuestionTitle
+                            question={question}
+                            onChange={this.props.onQuestionNameChange}
+                        />
+                    </div>
+                    <div className="col-3 offset-3">                        
+                        <QuestionTypeSelect
+                            questionType={question.questionType}
+                            onChange={this.props.onQuestionTypeChange}
+                        />
+                    </div>
+                </div>
+                <div className="form-row">
+                    <div className="col-6">
+                        {questionEl}
+                    </div>
+                    <div className="col-3 offset-3 d-flex align-content-end">
+                        <button
+                            type="button"
+                            className="btn btn-danger btn-sm ml-auto float-right mt-auto"
+                            onClick={this.props.onQuestionRemoveClick}
+                        >
+                            &times;
+                        </button>
+                    </div>
+                </div>
+            </div>           
+        );
+
         const opacity = isDragging? 0 : 1;
         return connectDragSource(
-            connectDropTarget(<div style={{opacity}}>{questionEl}</div>)
+            connectDropTarget(<div style={{opacity}}>{questionItem}</div>)
         )
     }
 }
-
 export default QuestionItem;
