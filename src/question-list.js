@@ -41,7 +41,7 @@ class QuestionList extends Component {
         this.props.onQuestionOptionChange(optionId, e.target.value)
     }
     handleQuestionAddOptionClick(questionId, e) {
-        this.props.onQuestionAddOptionClick(questionId, e.target);        
+        this.props.onQuestionAddOptionClick(questionId, e.target);
     }
     handleQuestionOptionRemoveClick(optionId, questionId) {
         this.props.onQuestionOptionRemoveClick(optionId, questionId);

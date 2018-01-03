@@ -2,6 +2,9 @@ import React from 'react';
 import CustomForm from '../custom-form.js';
 import SectionList from '../section-list.js';
 import SectionItem from '../section-item.js';
+import QuestionList from '../question-list.js';
+import QuestionItem from '../question-item.js';
+
 import TestRenderer from 'react-test-renderer';
 
 test('Custom Form renders correctly', () => {
@@ -45,7 +48,7 @@ test('Custom Form renders correctly', () => {
         tree = component.toJSON();
         expect(tree).toMatchSnapshot();
     });
-
+    // Click all the section items
     SectionItemInstances.map((SectionItemIntance) => {
         SectionListInstance.props.onSectionItemClick(
             SectionItemIntance.props.section.id
@@ -54,7 +57,35 @@ test('Custom Form renders correctly', () => {
         tree = component.toJSON();
         expect(tree).toMatchSnapshot();
     });
-    
 
+    // Add a question
+    let QuestionListInstance = CustomFormInstance.findByType(QuestionList);
+
+    QuestionListInstance.props.onAddQuestionClick();
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();    
+    // Change all the question names
+    let QuestionItemInstances = QuestionListInstance.findAllByType(QuestionItem);
     
+    QuestionItemInstances.map(QuestionItemInstance => {
+        QuestionListInstance.props.onQuestionNameChange(
+            QuestionListInstance.props.currentSectionId,
+            QuestionItemInstance.props.id,
+            'New Name');
+
+        tree = component.toJSON();
+        expect(tree).toMatchSnapshot();
+    })
+
+    // Change the type of the first question to a drop down.
+
+    QuestionListInstance.props.onQuestionTypeChange(
+        QuestionListInstance.props.currentSectionId,
+        QuestionItemInstances[0].props.id,
+        'dropdown'
+    );    
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });
