@@ -16,8 +16,8 @@ import TestRenderer from 'react-test-renderer';
 //     handleAddQuestionClick (Done)
 //     handleQuestionNameChange (Done)
 //     handleQuestionTypeChange (Done)
-//     handleActiveQuestionClick
-//     handleQuestionRemoveClick
+//     handleActiveQuestionClick (Done)
+//     handleQuestionRemoveClick (Done)
 //     handleQuestionOptionChange (Done)
 //     handleQuestionAddOptionClick (Done)
 //     handleQuestionOptionRemoveClick (Done)
@@ -72,7 +72,7 @@ test('Custom Form renders correctly', () => {
         expect(tree).toMatchSnapshot();
     });
 
-    // Add a question
+    // Add a couple of questions
     let QuestionListInstance = CustomFormInstance.findByType(QuestionList);
 
     QuestionListInstance.props.onAddQuestionClick();
@@ -161,6 +161,16 @@ test('Custom Form renders correctly', () => {
         QuestionItemInstances[0].props.question.options[0].id,
         QuestionItemInstances[0].props.id,
     );
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    QuestionListInstance.props.onActiveQuestionClick(QuestionItemInstances[0].props.id);
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    QuestionListInstance.props.onQuestionRemoveClick(QuestionItemInstances[0].props.id);
 
     tree = component.toJSON();
     expect(tree).toMatchSnapshot();
