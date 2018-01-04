@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
 import SectionList from './section-list.js';
 import QuestionList from './question-list.js';
+import jQuery from 'jQuery';
 {/* Displays all parts of the custom form creator */}
 @DragDropContext(HTML5Backend)
 class CustomForm extends Component {
@@ -273,7 +274,7 @@ class CustomForm extends Component {
         });
     }
 
-    handleQuestionAddOptionClick(questionId, target) {
+    handleQuestionAddOptionClick(questionId) {
         let lastOptionId = this.state.lastOptionId + 1;
         let newOption = {
             id: lastOptionId,
@@ -286,7 +287,7 @@ class CustomForm extends Component {
 
 
         let focusCallback = () => {
-            ReactDOM.findDOMNode(target).parentNode.parentNode.previousSibling.firstChild.firstChild.nextSibling.select();
+            $('#option-'+lastOptionId).select();            
         }
         this.setState({
             sections: newSections,

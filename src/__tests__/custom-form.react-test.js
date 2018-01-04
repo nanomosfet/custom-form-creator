@@ -88,4 +88,48 @@ test('Custom Form renders correctly', () => {
 
     tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+
+
+    // Change the type of the first question to a text.
+    QuestionListInstance.props.onQuestionTypeChange(
+        QuestionListInstance.props.currentSectionId,
+        QuestionItemInstances[0].props.id,
+        'text'
+    );    
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Change the type of the first question to a number.
+    QuestionListInstance.props.onQuestionTypeChange(
+        QuestionListInstance.props.currentSectionId,
+        QuestionItemInstances[0].props.id,
+        'number'
+    );    
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Change the type of the first question to a drop down then add an option.
+
+    QuestionListInstance.props.onQuestionTypeChange(
+        QuestionListInstance.props.currentSectionId,
+        QuestionItemInstances[0].props.id,
+        'dropdown'
+    );
+    // Add one option
+    QuestionListInstance.props.onQuestionAddOptionClick(
+        QuestionItemInstances[0].props.id
+    );
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Add another option
+    QuestionListInstance.props.onQuestionAddOptionClick(
+        QuestionItemInstances[0].props.id
+    );
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });

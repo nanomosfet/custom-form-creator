@@ -144,6 +144,7 @@ class QuestionItem extends Component {
                     </span>
                     <input
                         type="text"
+                        id={"option-"+option.id.toString()}
                         value={option.option}
                         className="form-control"
                         onChange={(e) => this.props.onQuestionOptionChange(option.id, e)}
