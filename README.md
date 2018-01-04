@@ -5,6 +5,7 @@ Front end build pipeline currently includes:
 2. webpack (Module Bundler)
 3. Babel (JavaScript Compiler)
 4. Sass and CSS Compilers for Bootstrap
+5. Jest for snapshot testing
 
 Backend Server is a simple Flask App that serves the front end.
 
@@ -20,3 +21,8 @@ Backend Server is a simple Flask App that serves the front end.
 7. Add the needed Flask environment variables. `export FLASK_APP=server/app.py` and `export FLASK_DEBUG=1`
 8. Run `flask run`. This should start up the flask server that will host the front end. You should see your app on [localhost:5000](localhost:5000) now unless you changed the default port of flask to run on
 9. Look through the web page!
+
+
+## Testing
+
+1. Run `npm run test`
