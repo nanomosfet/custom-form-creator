@@ -3987,3 +3987,623 @@ exports[`Custom Form renders correctly 16`] = `
   </div>
 </div>
 `;
+
+exports[`Custom Form renders correctly 17`] = `
+<div
+  className="container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-3 border border-right-0"
+    >
+      <section>
+        <h5
+          className="text-center"
+        >
+          Sections
+        </h5>
+        <ul
+          className="nav flex-column"
+        >
+          <li
+            className="nav-item"
+          >
+            <div
+              className="input-group"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                onClick={[Function]}
+                value="Some Random Name"
+              />
+              <span
+                className="input-group-addon btn btn-danger"
+                id={3}
+                onClick={[Function]}
+              >
+                ×
+              </span>
+            </div>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <div
+              className="input-group"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                onClick={[Function]}
+                value="Some Random Name"
+              />
+              <span
+                className="input-group-addon btn btn-danger"
+                id={4}
+                onClick={[Function]}
+              >
+                ×
+              </span>
+            </div>
+          </li>
+          <button
+            onClick={[Function]}
+          >
+            +
+          </button>
+        </ul>
+      </section>
+    </div>
+    <div
+      className="col-9 border border-left-0"
+    >
+      <div>
+        <h5
+          className="text-center"
+        >
+          Some Random Name
+        </h5>
+        <div
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <div
+            className="p-2 m-2 border border-primary rounded active-question"
+            onClick={[Function]}
+          >
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control  m-1"
+                  onChange={[Function]}
+                  type="text"
+                  value="New Name"
+                />
+              </div>
+              <div
+                className="col-3 offset-3"
+              >
+                <select
+                  className="form-control float-right  m-1"
+                  onChange={[Function]}
+                  value="dropdown"
+                >
+                  <option
+                    value="text"
+                  >
+                    Short Answer
+                  </option>
+                  <option
+                    value="number"
+                  >
+                    Number
+                  </option>
+                  <option
+                    value="dropdown"
+                  >
+                    Dropdown
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <ol
+                  className="list-group m-1"
+                >
+                  <li
+                    className="list-group-item"
+                  >
+                    <div
+                      className="input-group"
+                    >
+                      <span
+                        className="input-group-addon"
+                      >
+                        1.
+                      </span>
+                      <input
+                        className="form-control"
+                        id="option-4"
+                        onChange={[Function]}
+                        type="text"
+                        value="Changed option"
+                      />
+                      <span
+                        className="input-group-addon btn btn-danger"
+                        onClick={[Function]}
+                      >
+                        ×
+                      </span>
+                    </div>
+                  </li>
+                  <li
+                    className="list-group-item"
+                  >
+                    <div
+                      className="input-group"
+                    >
+                      <span
+                        className="input-group-addon"
+                      >
+                        2.
+                      </span>
+                      <input
+                        className="form-control"
+                        id="option-5"
+                        onChange={[Function]}
+                        type="text"
+                        value="New Option"
+                      />
+                      <span
+                        className="input-group-addon btn btn-danger"
+                        onClick={[Function]}
+                      >
+                        ×
+                      </span>
+                    </div>
+                  </li>
+                  <li
+                    className="list-group-item"
+                  >
+                    <div
+                      className="input-group"
+                    >
+                      <span
+                        className="input-group-addon"
+                      >
+                        3.
+                      </span>
+                      <input
+                        className="form-control"
+                        onClick={[Function]}
+                        placeholder="New Option"
+                        type="text"
+                      />
+                    </div>
+                  </li>
+                </ol>
+              </div>
+              <div
+                className="col-3 offset-3 d-flex align-content-end"
+              >
+                <button
+                  className="btn btn-danger btn-sm ml-auto float-right mt-auto"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <div
+            className="p-2 m-2 border border-primary rounded "
+            onClick={[Function]}
+          >
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control  m-1"
+                  onChange={[Function]}
+                  type="text"
+                  value="New Name"
+                />
+              </div>
+              <div
+                className="col-3 offset-3"
+              >
+                <select
+                  className="form-control float-right  m-1"
+                  onChange={[Function]}
+                  value="text"
+                >
+                  <option
+                    value="text"
+                  >
+                    Short Answer
+                  </option>
+                  <option
+                    value="number"
+                  >
+                    Number
+                  </option>
+                  <option
+                    value="dropdown"
+                  >
+                    Dropdown
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control m-1"
+                  disabled="true"
+                  id="question-8"
+                  placeholder="Short Text Answer"
+                  type="text"
+                />
+              </div>
+              <div
+                className="col-3 offset-3 d-flex align-content-end"
+              >
+                <button
+                  className="btn btn-danger btn-sm ml-auto float-right mt-auto"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="row m-1"
+        >
+          <div
+            className="col-2 offset-6"
+          >
+            <button
+              className="btn btn-success btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Custom Form renders correctly 18`] = `
+<div
+  className="container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-3 border border-right-0"
+    >
+      <section>
+        <h5
+          className="text-center"
+        >
+          Sections
+        </h5>
+        <ul
+          className="nav flex-column"
+        >
+          <li
+            className="nav-item"
+          >
+            <div
+              className="input-group"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                onClick={[Function]}
+                value="Some Random Name"
+              />
+              <span
+                className="input-group-addon btn btn-danger"
+                id={3}
+                onClick={[Function]}
+              >
+                ×
+              </span>
+            </div>
+          </li>
+          <li
+            className="nav-item"
+          >
+            <div
+              className="input-group"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                onClick={[Function]}
+                value="Some Random Name"
+              />
+              <span
+                className="input-group-addon btn btn-danger"
+                id={4}
+                onClick={[Function]}
+              >
+                ×
+              </span>
+            </div>
+          </li>
+          <button
+            onClick={[Function]}
+          >
+            +
+          </button>
+        </ul>
+      </section>
+    </div>
+    <div
+      className="col-9 border border-left-0"
+    >
+      <div>
+        <h5
+          className="text-center"
+        >
+          Some Random Name
+        </h5>
+        <div
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <div
+            className="p-2 m-2 border border-primary rounded active-question"
+            onClick={[Function]}
+          >
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control  m-1"
+                  onChange={[Function]}
+                  type="text"
+                  value="New Name"
+                />
+              </div>
+              <div
+                className="col-3 offset-3"
+              >
+                <select
+                  className="form-control float-right  m-1"
+                  onChange={[Function]}
+                  value="dropdown"
+                >
+                  <option
+                    value="text"
+                  >
+                    Short Answer
+                  </option>
+                  <option
+                    value="number"
+                  >
+                    Number
+                  </option>
+                  <option
+                    value="dropdown"
+                  >
+                    Dropdown
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <ol
+                  className="list-group m-1"
+                >
+                  <li
+                    className="list-group-item"
+                  >
+                    <div
+                      className="input-group"
+                    >
+                      <span
+                        className="input-group-addon"
+                      >
+                        1.
+                      </span>
+                      <input
+                        className="form-control"
+                        id="option-5"
+                        onChange={[Function]}
+                        type="text"
+                        value="New Option"
+                      />
+                      <span
+                        className="input-group-addon btn btn-danger"
+                        onClick={[Function]}
+                      >
+                        ×
+                      </span>
+                    </div>
+                  </li>
+                  <li
+                    className="list-group-item"
+                  >
+                    <div
+                      className="input-group"
+                    >
+                      <span
+                        className="input-group-addon"
+                      >
+                        2.
+                      </span>
+                      <input
+                        className="form-control"
+                        onClick={[Function]}
+                        placeholder="New Option"
+                        type="text"
+                      />
+                    </div>
+                  </li>
+                </ol>
+              </div>
+              <div
+                className="col-3 offset-3 d-flex align-content-end"
+              >
+                <button
+                  className="btn btn-danger btn-sm ml-auto float-right mt-auto"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <div
+            className="p-2 m-2 border border-primary rounded "
+            onClick={[Function]}
+          >
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control  m-1"
+                  onChange={[Function]}
+                  type="text"
+                  value="New Name"
+                />
+              </div>
+              <div
+                className="col-3 offset-3"
+              >
+                <select
+                  className="form-control float-right  m-1"
+                  onChange={[Function]}
+                  value="text"
+                >
+                  <option
+                    value="text"
+                  >
+                    Short Answer
+                  </option>
+                  <option
+                    value="number"
+                  >
+                    Number
+                  </option>
+                  <option
+                    value="dropdown"
+                  >
+                    Dropdown
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              className="form-row"
+            >
+              <div
+                className="col-6"
+              >
+                <input
+                  className="form-control m-1"
+                  disabled="true"
+                  id="question-8"
+                  placeholder="Short Text Answer"
+                  type="text"
+                />
+              </div>
+              <div
+                className="col-3 offset-3 d-flex align-content-end"
+              >
+                <button
+                  className="btn btn-danger btn-sm ml-auto float-right mt-auto"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="row m-1"
+        >
+          <div
+            className="col-2 offset-6"
+          >
+            <button
+              className="btn btn-success btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

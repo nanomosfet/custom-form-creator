@@ -7,6 +7,20 @@ import QuestionItem from '../question-item.js';
 
 import TestRenderer from 'react-test-renderer';
 
+// This is snap shot testing for the custom form component
+// The handlers tested are:
+//     handleAddSectionClick (Done)
+//     handleSectionNameChange (Done)
+//     handleRemoveSectionClick (Done)
+//     handleSectionItemClick (Done)
+//     handleAddQuestionClick (Done)
+//     handleQuestionNameChange (Done)
+//     handleQuestionTypeChange (Done)
+//     handleActiveQuestionClick
+//     handleQuestionRemoveClick
+//     handleQuestionOptionChange (Done)
+//     handleQuestionAddOptionClick (Done)
+//     handleQuestionOptionRemoveClick (Done)
 test('Custom Form renders correctly', () => {
     const component = TestRenderer.create(
         <CustomForm />,
@@ -132,4 +146,23 @@ test('Custom Form renders correctly', () => {
 
     tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+
+    // Change an option
+    QuestionListInstance.props.onQuestionOptionChange(
+        QuestionItemInstances[0].props.question.options[0].id,
+        'Changed option',
+    );
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Remove first option of current question
+    QuestionListInstance.props.onQuestionOptionRemoveClick(
+        QuestionItemInstances[0].props.question.options[0].id,
+        QuestionItemInstances[0].props.id,
+    );
+
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
 });
