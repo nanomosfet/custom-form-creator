@@ -4,7 +4,10 @@ import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from './item-types';
 import QuestionTypeSelect from './question-type-select.js';
-import QuestionTitle from './question-title.js'
+import QuestionTitle from './question-title.js';
+import NumberQuestion from './number-question.js';
+import DropdownQuestion from './dropdown-question.js';
+import TextQuestion from './text-question.js';
 
 const questionSource = {
     beginDrag(props) {
@@ -55,21 +58,6 @@ const questionTarget = {
     isDragging: monitor.isDragging(),
 }))
 class QuestionItem extends Component {
-    constructor(props) {
-        super(props);
-        this.questionTypes = [
-            'text',
-            'number',
-            'dropdown'
-        ];
-
-        this.questionNames = {
-            'text': 'Short Answer',
-            'number': 'Number',
-            'dropdown': 'Dropdown'
-        }
-    }
-
     static propTypes = {
         connectDragSource: PropTypes.func.isRequired,
         connectDropTarget: PropTypes.func.isRequired,
@@ -78,123 +66,7 @@ class QuestionItem extends Component {
         id: PropTypes.any.isRequired,
         moveQuestion: PropTypes.func.isRequired,
     }
-
-    getQuestionTypeOptions() {
-        const questionTypeOptions = this.questionTypes.map((type) =>
-            <option key={type} value={type}>{this.questionNames[type]}</option>
-        );
-
-        return (questionTypeOptions);
-    }
-
-
-    renderTextQuestion(question) {
-        if(this.props.editMode) {
-            return (
-                <input
-                    type="text"
-                    id={'question-'+question.id}
-                    disabled='true'
-                    placeholder='Short Text Answer'
-                    className="form-control m-1"
-                />
-            );
-        }
-        else {
-            return (
-                <div>
-                    <label htmlFor={'question-'+question.id}>{question.name}</label>
-                    <input type="text" id={'question-'+question.id} />
-                </div>
-            );
-        }
-    }
-
-    renderNumberQuestion(question) {
-        if(this.props.editMode) {
-            return (                
-                <input
-                    type="number"
-                    id={'question-'+question.id}
-                    disabled='true'
-                    placeholder='Number Answer'
-                    className="form-control m-1"
-                />
-                       
-            );
-        }
-        else {
-            return (
-                <div>
-                    <label htmlFor={'question-'+question.id}>{question.name}</label>
-                    <input type="number" id={'question-'+question.id} />
-                </div>
-            );
-        }
-    }
-
-    renderDropdownQuestion(question) {
-        const getDropdownOptions = question.options.map((option, index) =>
-            <li key={option.id} className="list-group-item">
-                <div className="input-group">
-                    <span
-                        className="input-group-addon"
-                    >
-                        {(index+1).toString()+'.'}
-                    </span>
-                    <input
-                        type="text"
-                        id={"option-"+option.id.toString()}
-                        value={option.option}
-                        className="form-control"
-                        onChange={(e) => this.props.onQuestionOptionChange(option.id, e)}
-                    />
-                     <span
-                            onClick={(e) => this.props.onQuestionOptionRemoveClick(option.id, question.id)}
-                            className="input-group-addon btn btn-danger"
-                        >
-                            &times;
-                    </span>
-                </div>
-            </li>
-        );
-
-        const renderDropdownAddOption = (
-            <li className="list-group-item">
-                <div className="input-group">
-                    <span
-                        className="input-group-addon"
-                    >
-                        {(question.options.length + 1).toString() + '.'}
-                    </span>
-                    <input
-                        type="text"
-                        placeholder='New Option'
-                        className="form-control"
-                        onClick={this.props.onQuestionAddOptionClick}
-                    />
-                </div>
-            </li>
-        );
-        if(this.props.editMode) {
-            return (                
-                <ol
-                    className="list-group m-1"
-                >
-                    {getDropdownOptions}
-                    {renderDropdownAddOption}
-                </ol>                        
-            );
-        }
-        else {
-            return (
-                <div>
-                    <label htmlFor={'question-'+question.id}>{question.name}</label>
-                    <input type="number" id={'question-'+question.id} />
-                </div>
-            );
-        }
-    }
+    
     render() {
         const question = this.props.question;
 
@@ -206,13 +78,31 @@ class QuestionItem extends Component {
         let questionEl = ''
         switch(question.questionType) {
             case 'text':
-                questionEl = this.renderTextQuestion(question);
+                questionEl = (
+                    <TextQuestion 
+                        question={question}
+                        editMode={this.props.editMode}
+                    />
+                );
                 break;
-            case 'number':
-                questionEl = this.renderNumberQuestion(question);
+            case 'number':                
+                questionEl = (
+                    <NumberQuestion 
+                        question={question}
+                        editMode={this.props.editMode}
+                    />
+                );
                 break;
             case 'dropdown':
-                questionEl = this.renderDropdownQuestion(question);
+                questionEl = (
+                    <DropdownQuestion 
+                        question={question}
+                        editMode={this.props.editMode}
+                        onQuestionOptionChange={this.props.onQuestionOptionChange}
+                        onQuestionOptionRemoveClick={this.props.onQuestionOptionRemoveClick}
+                        onQuestionAddOptionClick={this.props.onQuestionAddOptionClick}
+                    />
+                );
                 break;
         }
         const questionItem = (

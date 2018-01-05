@@ -5,7 +5,6 @@ import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
 import SectionList from './section-list.js';
 import QuestionList from './question-list.js';
-import jQuery from 'jQuery';
 {/* Displays all parts of the custom form creator */}
 @DragDropContext(HTML5Backend)
 class CustomForm extends Component {
