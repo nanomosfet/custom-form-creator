@@ -40,6 +40,17 @@ module.exports = {
         }, {
           loader: 'sass-loader' // compiles SASS to CSS
         }]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       }
     ]
   },

@@ -39,6 +39,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.7",
+    "file-loader": "^1.1.10",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.0.4",
     "postcss-loader": "^2.0.9",
@@ -46,6 +47,7 @@
     "react-test-renderer": "^16.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   },
   "jest": {
@@ -57,8 +59,10 @@
       "src"
     ],
     "moduleNameMapper": {
-    "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
-    "setupFiles": ["./setup-jest.js"]
+    "setupFiles": [
+      "./setup-jest.js"
+    ]
   }
 }
