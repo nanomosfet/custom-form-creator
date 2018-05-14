@@ -4,7 +4,7 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install flask
+RUN pip install flask==0.12
 
 EXPOSE 5000
 EXPOSE 80
